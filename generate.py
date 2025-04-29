@@ -16,7 +16,7 @@ def load_csv(filename: str):
 
 namespaces = [
     # abiility, generation, item, item_pocket, language, location, pokemon_specie
-    # region, stat, type, version
+    # region, stat, type, version, pokemon_color
     {"origin": "abilities", "local": "ability_names", "fk": "ability_id"},
     {"origin": "generations", "local": "generation_names", "fk": "generation_id"},
     {"origin": "items", "local": "item_names", "fk": "item_id"},
@@ -27,7 +27,8 @@ namespaces = [
     {"origin": "regions", "local": "region_names", "fk": "region_id"},
     {"origin": "stats", "local": "stat_names", "fk": "stat_id"},
     {"origin": "types", "local": "type_names", "fk": "type_id"},
-    {"origin": "versions", "local": "version_names", "fk": "version_id"}
+    {"origin": "versions", "local": "version_names", "fk": "version_id"},
+    {"origin": "pokemon_colors", "local": "pokemon_color_names", "fk": "pokemon_color_id"}
 ]
 
 languages = {
