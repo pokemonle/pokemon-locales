@@ -28,7 +28,9 @@ namespaces = [
     {"origin": "stats", "local": "stat_names", "fk": "stat_id"},
     {"origin": "types", "local": "type_names", "fk": "type_id"},
     {"origin": "versions", "local": "version_names", "fk": "version_id"},
-    {"origin": "pokemon_colors", "local": "pokemon_color_names", "fk": "pokemon_color_id"}
+    {"origin": "pokemon_colors", "local": "pokemon_color_names", "fk": "pokemon_color_id"},
+    
+    {"origin": "egg_groups", "local": "egg_group_prose", "fk": "egg_group_id"},
 ]
 
 languages = {

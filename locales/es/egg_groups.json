@@ -1,0 +1,17 @@
+{
+    "monster": "Monstruo",
+    "water1": "Agua 1",
+    "bug": "Bicho",
+    "flying": "Volador",
+    "ground": "Campo",
+    "fairy": "Hada",
+    "plant": "Planta",
+    "humanshape": "Humanoide",
+    "water3": "Agua 3",
+    "mineral": "Mineral",
+    "indeterminate": "Amorfo",
+    "water2": "Agua 2",
+    "ditto": "Ditto",
+    "dragon": "Dragón",
+    "no-eggs": "Desconocido"
+}
