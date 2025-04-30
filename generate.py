@@ -31,6 +31,7 @@ namespaces = [
     {"origin": "pokemon_colors", "local": "pokemon_color_names", "fk": "pokemon_color_id"},
     
     {"origin": "egg_groups", "local": "egg_group_prose", "fk": "egg_group_id"},
+    {"origin": "evolution_triggers", "local": "evolution_trigger_prose", "fk": "evolution_trigger_id"},
 ]
 
 languages = {
