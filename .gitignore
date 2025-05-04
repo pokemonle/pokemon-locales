@@ -1,0 +1,13 @@
+# Generated localization files
+locales
+
+# Node.js dependency directory
+node_modules
+dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
