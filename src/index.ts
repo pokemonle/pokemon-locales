@@ -2,15 +2,10 @@ import fs from "fs";
 import path from "path";
 import csvParser from "csv-parser";
 import { fileURLToPath } from "url";
+import { namespaces } from "./namespace.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-interface Namespace {
-  origin: string;
-  local: string;
-  fk: string;
-}
 
 interface Language {
   [key: string]: number;
@@ -32,6 +27,7 @@ interface ProcessedData {
   id: string;
   identifier: string;
   name: string | null;
+  description?: string;
 }
 
 const loadCSV = <T>(filename: string): Promise<T[]> => {
@@ -54,38 +50,6 @@ const loadCSV = <T>(filename: string): Promise<T[]> => {
       });
   });
 };
-
-// Define our namespaces
-const namespaces: Namespace[] = [
-  // ability, generation, item, item_pocket, language, location, pokemon_specie
-  // region, stat, type, version, pokemon_color
-  { origin: "abilities", local: "ability_names", fk: "ability_id" },
-  { origin: "generations", local: "generation_names", fk: "generation_id" },
-  { origin: "items", local: "item_names", fk: "item_id" },
-  { origin: "item_pockets", local: "item_pocket_names", fk: "item_pocket_id" },
-  { origin: "languages", local: "language_names", fk: "language_id" },
-  { origin: "locations", local: "location_names", fk: "location_id" },
-  {
-    origin: "pokemon_species",
-    local: "pokemon_species_names",
-    fk: "pokemon_species_id",
-  },
-  { origin: "regions", local: "region_names", fk: "region_id" },
-  { origin: "stats", local: "stat_names", fk: "stat_id" },
-  { origin: "types", local: "type_names", fk: "type_id" },
-  { origin: "versions", local: "version_names", fk: "version_id" },
-  {
-    origin: "pokemon_colors",
-    local: "pokemon_color_names",
-    fk: "pokemon_color_id",
-  },
-  { origin: "egg_groups", local: "egg_group_prose", fk: "egg_group_id" },
-  {
-    origin: "evolution_triggers",
-    local: "evolution_trigger_prose",
-    fk: "evolution_trigger_id",
-  },
-];
 
 const languages: Language = {
   ja: 1,
@@ -130,6 +94,7 @@ async function generateData(
         id,
         identifier,
         name,
+        description: localRow ? localRow.description : undefined,
       };
     });
   } catch (err) {
@@ -158,7 +123,7 @@ export async function generateLocaleFiles(): Promise<void> {
     console.log(`Processing language: ${langCode}`);
 
     for (const ns of namespaces) {
-      const { origin, local, fk } = ns;
+      const { origin, local, fk, render } = ns;
 
       try {
         console.log(`  Processing namespace: ${origin}`);
@@ -168,8 +133,9 @@ export async function generateLocaleFiles(): Promise<void> {
         const dataMap = data
           .filter((d) => d.name !== null)
           .reduce<Record<string, string>>((map, d) => {
-            if (d.name !== null) {
-              map[d.identifier] = d.name;
+            let result = render ? render(d) : d.name;
+            if (result !== null) {
+              map[d.identifier] = result;
             }
             return map;
           }, {});
