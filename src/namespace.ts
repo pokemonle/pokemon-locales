@@ -51,4 +51,11 @@ const namespaces: Namespace[] = [
       };
     },
   },
+  // moves
+  { origin: "moves", local: "move_names", fk: "move_id" },
+  {
+    origin: "move_damage_classes",
+    local: "move_damage_class_prose",
+    fk: "move_damage_class_id",
+  },
 ];
